@@ -9,8 +9,16 @@ from nltk.corpus import stopwords
 # Load model and tokenizer
 model = load_model("fake_news_model.keras")
 
-with open("tokenizer.pkl", "rb") as f:
-    tokenizer = pickle.load(f)
+import traceback
+
+try:
+    with open("tokenizer.pkl", "rb") as f:
+        tokenizer = pickle.load(f)
+    st.success("Tokenizer loaded successfully!")
+except Exception as e:
+    st.error(f"Tokenizer Error: {e}")
+    st.code(traceback.format_exc())
+    st.stop()
 
 stop_words = set(stopwords.words("english"))
 
